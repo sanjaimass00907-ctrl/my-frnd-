@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 💜</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  height:100vh;
+  background:linear-gradient(135deg,#c77dff,#e0aaff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  width:90%;
+  max-width:360px;
+  border-radius:20px;
+  padding:25px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  z-index:2;
+}
+
+h1{
+  color:#7b2cbf;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:14px;
+  color:#444;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 22px;
+  border:none;
+  border-radius:30px;
+  background:#7b2cbf;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#9d4edd;
+}
+
+#wishBox,#photoBox{
+  display:none;
+  margin-top:20px;
+}
+
+#wishText{
+  font-size:15px;
+  line-height:1.6;
+}
+
+img{
+  width:100%;
+  border-radius:15px;
+  margin-top:15px;
+}
+
+/* 💜 PURPLE HEART SHOWER */
+.heart{
+  position:fixed;
+  top:-20px;
+  font-size:22px;
+  color:#9d4edd;
+  animation:fall linear infinite;
+  z-index:1;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <!-- SCREEN 1 -->
+  <div id="screen1">
+    <h1>🎂 Happy Birthday 🎂</h1>
+    <p><b>💜BAKKI💜(Mutta 🐣)😍</b></p> <!-- CHANGE NAME -->
+    <button onclick="startWish()">Tap Me 🎁</button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="wishBox">
+    <p id="wishText"></p>
+    <button onclick="showPhoto()">One More Surprise 💜</button>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div id="photoBox">
+    <h1>💜 For You 💜</h1>
+    <!-- Make sure the uploaded file name matches exactly -->
+    <img src="photo.jpg.jpg" alt="Birthday Photo">
+  </div>
+
+</div>
+
+<!-- SONG -->
+<!-- Added loop and preload for better experience -->
+<audio id="song" loop preload="auto">
+  <source src="teddy_nanbiye.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* 💬 TYPING MESSAGE */
+const message =
+"In my 20 years life la college la first kidaicha best frnd nee than mutta 💜"
+"En life-la nee irukradhu\n" +
+"oru periya gift 🎁\n\n" +
+"Un smile 😄\n" +
+"Un care 🤍\n" +
+"Un friendship 💫\n" +
+"ellamey romba special.\n\n" +
+"Innum neraya birthdays\n" +
+"naama serndhu celebrate pannanum 🎉\n\n" +
+"Always happy-aa iru 💜";
+
+let i = 0;
+
+/* SCREEN 1 → SCREEN 2 */
+function startWish(){
+  document.getElementById("screen1").style.display="none";
+  document.getElementById("wishBox").style.display="block";
+  
+  // Starting the song here solves browser blocking issues
+  const audio = document.getElementById("song");
+  audio.play().catch(error => console.log("Audio play blocked:", error));
+  
+  typeText();
+}
+
+/* TYPEWRITER EFFECT */
+function typeText(){
+  if(i < message.length){
+    document.getElementById("wishText").innerHTML +=
+      message.charAt(i)==="\n" ? "<br>" : message.charAt(i);
+    i++;
+    setTimeout(typeText,40);
+  }
+}
+
+/* SCREEN 3 */
+function showPhoto(){
+  document.getElementById("photoBox").style.display="block";
+}
+
+/* 💜 HEART SHOWER */
+setInterval(()=>{
+  const heart = document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="💜";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(Math.random()*3+2)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+},300);
+</script>
+
+</body>
+</html>
